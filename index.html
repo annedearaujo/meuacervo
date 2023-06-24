@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Meu Acervo</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Meu Acervo</h1>
+
+  <h2>Autores</h2>
+  <ul id="autores-list"></ul>
+
+  <h2>Livros</h2>
+  <ul id="livros-list"></ul>
+
+  <h2>Adicionar Autor</h2>
+  <form id="add-autor-form">
+    <label for="nome-autor">Nome:</label>
+    <input type="text" id="nome-autor" required>
+
+    <label for="data-nasc-autor">Data de Nascimento:</label>
+    <input type="date" id="data-nasc-autor">
+
+    <label for="pais-autor">País:</label>
+    <input type="text" id="pais-autor">
+
+    <button type="submit">Adicionar Autor</button>
+  </form>
+
+  <h2>Adicionar Livro</h2>
+  <form id="add-livro-form">
+    <label for="titulo-livro">Título:</label>
+    <input type="text" id="titulo-livro" required>
+
+    <label for="ano-livro">Ano:</label>
+    <input type="number" id="ano-livro">
+
+    <label for="isbn-livro">ISBN:</label>
+    <input type="text" id="isbn-livro" required>
+
+    <label for="editora-livro">Editora:</label>
+    <input type="text" id="editora-livro">
+
+    <label for="edicao-livro">Edição:</label>
+    <input type="number" id="edicao-livro">
+
+    <label for="num-paginas-livro">Número de Páginas:</label>
+    <input type="number" id="num-paginas-livro">
+
+    <label for="genero-livro">Gênero:</label>
+    <input type="text" id="genero-livro">
+
+    <label for="autor-id-livro">ID do Autor:</label>
+    <input type="number" id="autor-id-livro">
+
+    <button type="submit">Adicionar Livro</button>
+  </form>
+
+  <script>
+    // Função para exibir os autores na lista
+    function displayAutores(autores) {
+      const autoresList = document.getElementById('autores-list');
+      autoresList.innerHTML = '';
+
+      autores.forEach((autor) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${autor.nome} - ${autor.pais}`;
+        autoresList.appendChild(listItem);
+      });
+    }
+
+    // Função para exibir os livros na lista
+    function displayLivros(livros) {
+      const livrosList = document.getElementById('livros-list');
+      livrosList.innerHTML = '';
+
+      livros.forEach((livro) => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${livro.titulo} (${livro.ano}) - ${livro.editora}`;
+        livrosList.appendChild(listItem);
+      });
+    }
+
+    // Função para enviar uma solicitação POST ao adicionar um autor
+    function addAutor(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome-autor').value;
+      const dataNasc = document.getElementById('data-nasc-autor').value;
+      const pais = document.getElementById('pais-autor').value;
+
+      axios.post('http://localhost:4000/autores', { nome, data_nasc: dataNasc, pais })
+        .then((response) => {
+          alert('Autor adicionado com sucesso!');
+          console.log(response.data);
+          document.getElementById('nome-autor').value = '';
+          document.getElementById('data-nasc-autor').value = '';
+          document.getElementById('pais-autor').value = '';
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Erro ao adicionar o autor.');
+        });
+    }
+
+    // Função para enviar uma solicitação POST ao adicionar um livro
+    function addLivro(event) {
+      event.preventDefault();
+
+      const titulo = document.getElementById('titulo-livro').value;
+      const ano = document.getElementById('ano-livro').value;
+      const isbn = document.getElementById('isbn-livro').value;
+      const editora = document.getElementById('editora-livro').value;
+      const edicao = document.getElementById('edicao-livro').value;
+      const numPaginas = document.getElementById('num-paginas-livro').value;
+      const genero = document.getElementById('genero-livro').value;
+      const autorId = document.getElementById('autor-id-livro').value;
+
+      axios.post('http://localhost:4000/livros', { titulo, ano, ISBN: isbn, editora, edicao, num_paginas: numPaginas, genero, autor_id: autorId })
+        .then((response) => {
+          alert('Livro adicionado com sucesso!');
+          console.log(response.data);
+          document.getElementById('titulo-livro').value = '';
+          document.getElementById('ano-livro').value = '';
+          document.getElementById('isbn-livro').value = '';
+          document.getElementById('editora-livro').value = '';
+          document.getElementById('edicao-livro').value = '';
+          document.getElementById('num-paginas-livro').value = '';
+          document.getElementById('genero-livro').value = '';
+          document.getElementById('autor-id-livro').value = '';
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Erro ao adicionar o livro.');
+        });
+    }
+
+    // Obtenha a lista de autores ao carregar a página
+    axios.get('http://localhost:4000/autores')
+      .then((response) => {
+        displayAutores(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Erro ao obter os autores.');
+      });
+
+    // Obtenha a lista de livros ao carregar a página
+    axios.get('http://localhost:4000/livros')
+      .then((response) => {
+        displayLivros(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Erro ao obter os livros.');
+      });
+
+    // Adicione os ouvintes de eventos para os formulários
+    const addAutorForm = document.getElementById('add-autor-form');
+    addAutorForm.addEventListener('submit', addAutor);
+
+    const addLivroForm = document.getElementById('add-livro-form');
+    addLivroForm.addEventListener('submit', addLivro);
+  </script>
+</body>
+</html>
