@@ -27,7 +27,7 @@ connection.connect((err) => {
 
 // Rota para obter todos os autores
 app.get('/autores', (req, res) => {
-  connection.query('SELECT * FROM autores ORDER BY nome asc', (err, results) => {
+  connection.query('SELECT * FROM autores ORDER BY nome ASC', (err, results) => {
     if (err) {
       console.error('Erro ao executar a consulta:', err);
       res.status(500).json({ error: 'Erro ao obter os autores.' });
@@ -39,7 +39,7 @@ app.get('/autores', (req, res) => {
 
 // Rota para obter todos os livros
 app.get('/livros', (req, res) => {
-  connection.query('SELECT * FROM livros ORDER BY titulo asc', (err, results) => {
+  connection.query('SELECT * FROM livros ORDER BY titulo ASC', (err, results) => {
     if (err) {
       console.error('Erro ao executar a consulta:', err);
       res.status(500).json({ error: 'Erro ao obter os livros.' });
