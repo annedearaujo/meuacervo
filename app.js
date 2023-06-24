@@ -49,6 +49,21 @@ app.get('/livros', (req, res) => {
   });
 });
 
+// Rota para obter sugestões de editoras
+app.get('/editoras', (req, res) => {
+  const parcialEditora = req.query.editora;
+  const query = `SELECT DISTINCT editora FROM livros WHERE editora LIKE '%${parcialEditora}%' LIMIT 5`;
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Erro ao executar a consulta:', err);
+      res.status(500).json({ error: 'Erro ao obter as sugestões de editoras.' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 // Rota para adicionar um novo autor
 app.post('/autores', (req, res) => {
   const { nome, data_nasc, pais } = req.body;
