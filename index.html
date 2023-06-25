@@ -11,59 +11,81 @@
 </head>
 
 <body>
-  <h1>Meu Acervo</h1>
 
-  <h2>Autores</h2>
-  <ul id="autores-list"></ul>
+  <nav class="navbar">
+    <h1 class="navbar-title">Meu Acervo</h1>
+    <button class="navbar-toggler" id="navbar-toggler">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-menu" id="navbar-menu">
+      <ul>
+        <li><a href="#autores">Autores</a></li>
+        <li><a href="#livros">Livros</a></li>
+        <li><a href="#add-autor">Adicionar autor ou autora</a></li>
+        <li><a href="#add-livro">Adicionar livro</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <h2>Livros</h2>
-  <ul id="livros-list"></ul>
+  <section id="autores">
+    <h2>Autores</h2>
+    <ul id="autores-list"></ul>
+  </section>
 
-  <h2>Adicionar autor ou autora</h2>
-  <form id="add-autor-form">
-    <label for="nome-autor">Nome:</label>
-    <input type="text" id="nome-autor" required>
+  <section id="livros">
+    <h2>Livros</h2>
+    <ul id="livros-list"></ul>
+  </section>
 
-    <label for="data-nasc-autor">Data de Nascimento:</label>
-    <input type="date" id="data-nasc-autor">
+  <section id="add-autor">
+    <h2>Adicionar autor ou autora</h2>
+    <form id="add-autor-form">
+      <label for="nome-autor">Nome:</label>
+      <input type="text" id="nome-autor" required>
 
-    <label for="pais-autor">País:</label>
-    <input type="text" id="pais-autor">
+      <label for="data-nasc-autor">Data de Nascimento:</label>
+      <input type="date" id="data-nasc-autor">
 
-    <button type="submit">Adicionar</button>
-  </form>
+      <label for="pais-autor">País:</label>
+      <input type="text" id="pais-autor">
 
-  <h2>Adicionar livro</h2>
-  <form id="add-livro-form">
-    <label for="titulo-livro">Título:</label>
-    <input type="text" id="titulo-livro" required>
+      <button type="submit">Adicionar</button>
+    </form>
+  </section>
 
-    <label for="ano-livro">Ano:</label>
-    <select id="ano-livro" class="form-control custom-select">
-      <option value="" disabled selected>Selecione o ano</option>
-    </select>
+  <section id="add-livro">
+    <h2>Adicionar livro</h2>
+    <form id="add-livro-form">
+      <label for="titulo-livro">Título:</label>
+      <input type="text" id="titulo-livro" required>
 
-    <label for="isbn-livro">ISBN:</label>
-    <input type="text" id="isbn-livro" required>
+      <label for="ano-livro">Ano:</label>
+      <select id="ano-livro" class="form-control custom-select">
+        <option value="" disabled selected>Selecione o ano</option>
+      </select>
 
-    <label for="editora-livro">Editora:</label>
-    <input type="text" id="editora-livro" onkeyup="sugerirEditoras(event.target.value)">
-    <ul id="sugestoes-editora-list"></ul>
+      <label for="isbn-livro">ISBN:</label>
+      <input type="text" id="isbn-livro" required>
 
-    <label for="edicao-livro">Edição:</label>
-    <input type="number" id="edicao-livro">
+      <label for="editora-livro">Editora:</label>
+      <input type="text" id="editora-livro" onkeyup="sugerirEditoras(event.target.value)">
+      <ul id="sugestoes-editora-list"></ul>
 
-    <label for="num-paginas-livro">Número de páginas:</label>
-    <input type="number" id="num-paginas-livro">
+      <label for="edicao-livro">Edição:</label>
+      <input type="number" id="edicao-livro">
 
-    <label for="genero-livro">Gênero:</label>
-    <input type="text" id="genero-livro">
+      <label for="num-paginas-livro">Número de páginas:</label>
+      <input type="number" id="num-paginas-livro">
 
-    <label for="autor-id-livro">ID do Autor:</label>
-    <input type="number" id="autor-id-livro">
+      <label for="genero-livro">Gênero:</label>
+      <input type="text" id="genero-livro">
 
-    <button type="submit">Adicionar</button>
-  </form>
+      <label for="autor-id-livro">ID do Autor:</label>
+      <input type="number" id="autor-id-livro">
+
+      <button type="submit">Adicionar</button>
+    </form>
+  </section>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
   <script>
@@ -210,6 +232,14 @@
       option.text = ano;
       dropdownAnoLivro.appendChild(option);
     }
+  </script>
+  <script>
+    const navbarToggler = document.getElementById('navbar-toggler');
+    const navbarMenu = document.getElementById('navbar-menu');
+
+    navbarToggler.addEventListener('click', function () {
+      navbarMenu.classList.toggle('open');
+    });
   </script>
 </body>
 
