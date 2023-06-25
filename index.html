@@ -90,6 +90,8 @@
   <div class="separador"></div>
   <footer>© Feito por Anne Araújo | 2023</footer>
 
+  <button onclick="scrollToTop()" id="scrollToTopButton" title="Volte para o topo">↥</button>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
   <script>
     // Função para exibir os autores na lista
@@ -243,6 +245,23 @@
     navbarToggler.addEventListener('click', function () {
       navbarMenu.classList.toggle('open');
     });
+
+    // Função para rolar suavemente para o topo da página
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Ouvinte de evento para exibir ou ocultar o botão "Volte para o topo"
+    window.addEventListener('scroll', function () {
+      var scrollToTopButton = document.getElementById('scrollToTopButton');
+      if (window.pageYOffset > 200) {
+        scrollToTopButton.classList.add('show');
+      } else {
+        scrollToTopButton.classList.remove('show');
+      }
+    });
+
+
   </script>
 </body>
 
