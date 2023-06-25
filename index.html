@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>Meu Acervo</title>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
+
 <body>
   <h1>Meu Acervo</h1>
 
@@ -35,14 +39,16 @@
     <input type="text" id="titulo-livro" required>
 
     <label for="ano-livro">Ano:</label>
-    <input type="number" id="ano-livro">
+    <select id="ano-livro" class="form-control custom-select">
+      <option value="" disabled selected>Selecione o ano</option>
+    </select>
 
     <label for="isbn-livro">ISBN:</label>
     <input type="text" id="isbn-livro" required>
 
     <label for="editora-livro">Editora:</label>
     <input type="text" id="editora-livro" onkeyup="sugerirEditoras(event.target.value)">
-    <ul id="sugestoes-editora-list"></ul>      
+    <ul id="sugestoes-editora-list"></ul>
 
     <label for="edicao-livro">Edição:</label>
     <input type="number" id="edicao-livro">
@@ -59,6 +65,7 @@
     <button type="submit">Adicionar</button>
   </form>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.2/awesomplete.min.js"></script>
   <script>
     // Função para exibir os autores na lista
     function displayAutores(autores) {
@@ -86,32 +93,32 @@
 
     // Função para sugerir Editoras
     function sugerirEditoras(parcialEditora) {
-  axios.get('http://localhost:4000/editoras', { params: { editora: parcialEditora } })
-    .then((response) => {
-      const sugestoes = response.data;
-      exibirSugestoesEditora(sugestoes);
-    })
-    .catch((error) => {
-      console.error(error);
-      alert('Erro ao obter sugestões de editoras.');
-    });
-}
+      axios.get('http://localhost:4000/editoras', { params: { editora: parcialEditora } })
+        .then((response) => {
+          const sugestoes = response.data;
+          exibirSugestoesEditora(sugestoes);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Erro ao obter sugestões de editoras.');
+        });
+    }
 
-function exibirSugestoesEditora(sugestoes) {
-  const sugestoesList = document.getElementById('sugestoes-editora-list');
-  sugestoesList.innerHTML = '';
-
-  sugestoes.forEach((sugestao) => {
-    const listItem = document.createElement('li');
-    listItem.classList.add('sugestao-editora');
-    listItem.textContent = sugestao.editora;
-    listItem.onclick = () => {
-      document.getElementById('editora-livro').value = sugestao.editora;
+    function exibirSugestoesEditora(sugestoes) {
+      const sugestoesList = document.getElementById('sugestoes-editora-list');
       sugestoesList.innerHTML = '';
-    };
-    sugestoesList.appendChild(listItem);
-  });
-}
+
+      sugestoes.forEach((sugestao) => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('sugestao-editora');
+        listItem.textContent = sugestao.editora;
+        listItem.onclick = () => {
+          document.getElementById('editora-livro').value = sugestao.editora;
+          sugestoesList.innerHTML = '';
+        };
+        sugestoesList.appendChild(listItem);
+      });
+    }
 
     // Função para enviar uma solicitação POST ao adicionar um autor
     function addAutor(event) {
@@ -193,6 +200,17 @@ function exibirSugestoesEditora(sugestoes) {
 
     const addLivroForm = document.getElementById('add-livro-form');
     addLivroForm.addEventListener('submit', addLivro);
+
+    const dropdownAnoLivro = document.getElementById('ano-livro');
+    const anoAtual = new Date().getFullYear();
+
+    for (let ano = anoAtual; ano >= 1900; ano--) {
+      const option = document.createElement('option');
+      option.value = ano;
+      option.text = ano;
+      dropdownAnoLivro.appendChild(option);
+    }
   </script>
 </body>
+
 </html>
