@@ -65,6 +65,10 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+footer {
+    text-align:center
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -174,4 +178,11 @@ button[type="submit"]:hover {
 
 .sugestao-editora:hover {
     background-color: #f0f0f0;
+}
+
+.separador {
+    background-color: gray;
+    height: 2px;
+    max-width: 30px;
+    margin: 15px auto 20px;
 }
