@@ -126,6 +126,13 @@ footer {
     color: #333;
 }
 
+#autores,
+#livros,
+#add-autor,
+#add-livro {
+    padding: 2% 0%;
+}
+
 /* Estilo para as listas */
 .list-container {
     background-color: #fff;
