@@ -6,12 +6,9 @@ const config = require('./config'); // Importa as credenciais de config.js
 const app = express();
 const cors = require('cors');
 
-// ...
-
+// CORS
 app.use(cors());
-
 app.use(bodyParser.json());
-
 
 // Configuração da conexão com o banco de dados
 const connection = mysql.createConnection(config);
