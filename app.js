@@ -81,6 +81,8 @@ app.post('/livros', (req, res) => {
   const { titulo, ano, ISBN, editora, edicao, num_paginas, genero, autor_id } = req.body;
   const livro = { titulo, ano, ISBN, editora, edicao, num_paginas, genero, autor_id };
 
+  console.log('Livro a ser adicionado:', livro);
+
   connection.query('INSERT INTO livros SET ?', livro, (err, result) => {
     if (err) {
       console.error('Erro ao executar a consulta:', err);
