@@ -79,7 +79,18 @@ app.post('/autores', (req, res) => {
 // Rota para adicionar um novo livro
 app.post('/livros', (req, res) => {
   const { titulo, ano, ISBN, editora, edicao, num_paginas, genero, autor_id } = req.body;
-  const livro = { titulo, ano, ISBN, editora, edicao, num_paginas, genero, autor_id };
+
+  // Verificar se os campos não obrigatórios estão vazios e atribuir null se estiverem
+  const livro = {
+    titulo,
+    ano,
+    ISBN,
+    editora: editora || null,
+    edicao: edicao || null,
+    num_paginas: num_paginas || null,
+    genero: genero || null,
+    autor_id: autor_id || null
+  };
 
   console.log('Livro a ser adicionado:', livro);
 
