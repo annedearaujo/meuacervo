@@ -39,6 +39,13 @@ O projeto "Meu Acervo" inclui as seguintes funcionalidades:
 - Busca e sugestões de editoras com base nas entradas do usuário.
 - Listagem de livros adicionados à biblioteca pessoal.
 
+## Como Visualizar o Site
+
+Você pode acessar o site do meu portfólio online em https://annedearaujo.github.io/meuacervo/.
+
+Obs.: o servidor está inativo no momento.
+
+
 ## Como Executar o Projeto Localmente
 
 Para executar o projeto em seu ambiente local, siga estas etapas:
